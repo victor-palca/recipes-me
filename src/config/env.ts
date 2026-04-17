@@ -1,5 +1,7 @@
-import "dotenv/config";
+import { loadEnv } from "./loadEnv";
 import { z } from "zod";
+
+loadEnv();
 
 const envSchema = z
   .object({

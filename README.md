@@ -13,6 +13,8 @@ API REST para catalogo de receitas com autenticacao JWT, CRUD de receitas, filtr
 
 1. Copie variaveis:
    - `cp .env.example .env`
+   - Opcional: `.env.local` ou `.env.development` para overrides (ver comentarios no `.env.example`).
+   - Producao remota para teste local: `.env.production` com `DATABASE_URL` (gitignored); em deploy use as variaveis do provedor.
 2. Suba o banco:
    - `docker compose up -d`
 3. Gere client Prisma e aplique migration:
