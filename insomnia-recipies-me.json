@@ -1,0 +1,257 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-04-15T12:20:00.000Z",
+  "__export_source": "recipies-me-backend",
+  "resources": [
+    {
+      "_id": "wrk_recipies_me",
+      "_type": "workspace",
+      "name": "Recipies Me API",
+      "description": "Collection para testar todos os endpoints do backend."
+    },
+    {
+      "_id": "env_recipies_me",
+      "_type": "environment",
+      "parentId": "wrk_recipies_me",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000",
+        "token": "",
+        "recipe_id": ""
+      }
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_recipies_me",
+      "name": "Auth"
+    },
+    {
+      "_id": "fld_recipes",
+      "_type": "request_group",
+      "parentId": "wrk_recipies_me",
+      "name": "Recipes"
+    },
+    {
+      "_id": "fld_shopping",
+      "_type": "request_group",
+      "parentId": "wrk_recipies_me",
+      "name": "Shopping List"
+    },
+    {
+      "_id": "req_signup",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Sign Up",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/sign-up",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Victor\",\n  \"email\": \"victor@example.com\",\n  \"password\": \"12345678\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_signin",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Sign In",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/sign-in",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"victor@example.com\",\n  \"password\": \"12345678\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_me",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Me",
+      "method": "GET",
+      "url": "{{ _.base_url }}/auth/me",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_create_recipe",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "Create Recipe",
+      "method": "POST",
+      "url": "{{ _.base_url }}/recipes",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Bolo simples\",\n  \"imageUrl\": \"https://example.com/bolo.jpg\",\n  \"videoUrl\": \"https://youtube.com/watch?v=abc123\",\n  \"preparationMethod\": \"Misture tudo e asse por 40 minutos.\",\n  \"ingredients\": [\n    {\n      \"ingredientName\": \"Farinha de trigo\",\n      \"quantity\": \"2\",\n      \"unit\": \"xicaras\"\n    },\n    {\n      \"ingredientName\": \"Ovos\",\n      \"quantity\": \"3\",\n      \"unit\": \"unidades\"\n    }\n  ]\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_list_recipes",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "List Recipes (Page 1)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/recipes?page=1&pageSize=6",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_list_recipes_page_2",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "List Recipes (Page 2)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/recipes?page=2&pageSize=6",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_list_recipes_invalid_pagination",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "List Recipes (Invalid Pagination)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/recipes?page=0&pageSize=-1",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_filter_recipes",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "Filter Recipes By Ingredients (AND)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/recipes/filter/by-ingredients?ingredients=farinha%20de%20trigo,ovos",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_search_recipes_by_name",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "Search Recipes By Name",
+      "method": "GET",
+      "url": "{{ _.base_url }}/recipes/search/by-name?name=bolo",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_get_recipe_by_id",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "Get Recipe By Id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/recipes/{{ _.recipe_id }}",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_update_recipe",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "Update Recipe",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/recipes/{{ _.recipe_id }}",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Bolo simples atualizado\",\n  \"preparationMethod\": \"Misture todos os ingredientes, pre-aqueça o forno e asse por 40 minutos.\",\n  \"ingredients\": [\n    {\n      \"ingredientName\": \"Farinha de trigo\",\n      \"quantity\": \"2\",\n      \"unit\": \"xicaras\"\n    },\n    {\n      \"ingredientName\": \"Ovos\",\n      \"quantity\": \"4\",\n      \"unit\": \"unidades\"\n    },\n    {\n      \"ingredientName\": \"Acucar\",\n      \"quantity\": \"1\",\n      \"unit\": \"xicara\"\n    }\n  ]\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_delete_recipe",
+      "_type": "request",
+      "parentId": "fld_recipes",
+      "name": "Delete Recipe",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/recipes/{{ _.recipe_id }}",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_export_shopping",
+      "_type": "request",
+      "parentId": "fld_shopping",
+      "name": "Export Shopping List",
+      "method": "POST",
+      "url": "{{ _.base_url }}/shopping-list/export",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"recipeIds\": [\n    \"{{ _.recipe_id }}\"\n  ]\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    }
+  ]
+}

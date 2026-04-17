@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  recipes      Recipe[]
+}
+
+model Recipe {
+  id                String             @id @default(cuid())
+  title             String
+  imageUrl          String?
+  videoUrl          String?
+  preparationMethod String
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  userId            String
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipeIngredients RecipeIngredient[]
+}
+
+model Ingredient {
+  id                String             @id @default(cuid())
+  name              String             @unique
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  recipeIngredients RecipeIngredient[]
+}
+
+model RecipeIngredient {
+  id           String     @id @default(cuid())
+  recipeId     String
+  ingredientId String
+  quantity     String
+  unit         String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, ingredientId])
+}

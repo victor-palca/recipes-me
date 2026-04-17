@@ -1,0 +1,31 @@
+node_modules
+# Keep environment variables out of version control
+.env
+.env.test
+.env.*.local
+
+# Logs and debug
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# TypeScript incremental
+*.tsbuildinfo
+
+#Intelligent agents
+.claude
+.cursor
+.agents
+.specs
+
+/generated/prisma
+dist
+coverage
