@@ -19,9 +19,18 @@ const envSchema = z
      * Nos demais ambientes: omitido = ativo exceto em `production`.
      */
     ENABLE_SWAGGER: z.enum(["true", "false"]).optional(),
+    /** Origens CORS separadas por vírgula. Omitido = apenas http://localhost:3001 */
+    CORS_ORIGINS: z.string().optional(),
   })
-  .transform(({ ENABLE_SWAGGER, ...rest }) => ({
+  .transform(({ ENABLE_SWAGGER, CORS_ORIGINS, ...rest }) => ({
     ...rest,
+    corsOrigins: (() => {
+      const list =
+        CORS_ORIGINS?.split(",")
+          .map((s) => s.trim())
+          .filter(Boolean) ?? [];
+      return list.length > 0 ? list : ["http://localhost:3001"];
+    })(),
     enableSwagger:
       rest.NODE_ENV === "development"
         ? true

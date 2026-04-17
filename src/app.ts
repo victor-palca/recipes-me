@@ -1,22 +1,29 @@
 import express from "express";
-import cors from "cors";
+import cors, { type CorsOptions } from "cors";
 import { authRoutes } from "./routes/authRoutes";
 import { recipeRoutes } from "./routes/recipeRoutes";
 import { shoppingListRoutes } from "./routes/shoppingListRoutes";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { setupSwagger } from "./swagger/setupSwagger";
+import { env } from "./config/env";
 
 export const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3001",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
-app.options("/{*path}", cors());
+const corsOptions: CorsOptions = {
+  origin(origin, callback) {
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+    callback(null, env.corsOrigins.includes(origin));
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("/{*path}", cors(corsOptions));
 app.use(express.json());
 
 setupSwagger(app);
