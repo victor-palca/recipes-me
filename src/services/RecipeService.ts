@@ -6,6 +6,7 @@ import {
   RecipeWithIngredients,
   UpdateRecipeInput,
 } from "../repositories/interfaces/IRecipeRepository";
+import { calculateTotalPages } from "../utils/calculateTotalPages";
 import { normalizeText } from "../utils/normalizeText";
 import { IngredientSyncService } from "./IngredientSyncService";
 
@@ -93,10 +94,7 @@ export class RecipeService {
       normalizedNames: normalizedNames.length > 0 ? normalizedNames : undefined,
     });
 
-    const totalPages =
-      paginatedResult.total === 0
-        ? 0
-        : Math.ceil(paginatedResult.total / pageSize);
+    const totalPages = calculateTotalPages(paginatedResult.total, pageSize);
 
     return {
       data: paginatedResult.recipes,
