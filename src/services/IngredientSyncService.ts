@@ -1,6 +1,6 @@
 import { RecipeIngredientInput } from "../entities/recipe";
 import { IRecipeIngredientRepository } from "../repositories/interfaces/IRecipeIngredientRepository";
-import { normalizeIngredientName } from "../utils/ingredient";
+import { normalizeText } from "../utils/normalizeText";
 
 export class IngredientSyncService {
   constructor(
@@ -14,7 +14,7 @@ export class IngredientSyncService {
     const deduped = new Map<string, RecipeIngredientInput>();
 
     for (const ingredient of ingredients) {
-      const normalizedName = normalizeIngredientName(ingredient.ingredientName);
+      const normalizedName = normalizeText(ingredient.ingredientName);
       deduped.set(normalizedName, {
         ingredientName: normalizedName,
         quantity: ingredient.quantity,

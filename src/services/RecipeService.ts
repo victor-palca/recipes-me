@@ -6,7 +6,7 @@ import {
   RecipeWithIngredients,
   UpdateRecipeInput,
 } from "../repositories/interfaces/IRecipeRepository";
-import { normalizeIngredientName } from "../utils/ingredient";
+import { normalizeText } from "../utils/normalizeText";
 import { IngredientSyncService } from "./IngredientSyncService";
 
 export interface RecipeCreatePayload {
@@ -64,7 +64,10 @@ export class RecipeService {
       userId,
     });
 
-    await this.ingredientSyncService.syncForRecipe(recipe.id, payload.ingredients);
+    await this.ingredientSyncService.syncForRecipe(
+      recipe.id,
+      payload.ingredients,
+    );
 
     const recipeWithIngredients =
       await this.recipeRepository.findByIdWithIngredients(recipe.id);
@@ -177,7 +180,7 @@ export class RecipeService {
     const unique = new Set<string>();
 
     for (const ingredientName of ingredientNames) {
-      const normalizedName = normalizeIngredientName(ingredientName);
+      const normalizedName = normalizeText(ingredientName);
       if (normalizedName) {
         unique.add(normalizedName);
       }
