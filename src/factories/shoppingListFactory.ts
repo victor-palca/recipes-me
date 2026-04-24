@@ -1,4 +1,4 @@
-import { ShoppingListController } from "../controllers/ShoppingListController";
+import { ShoppingListController } from "../http/ShoppingListController";
 import { PostgresRecipeIngredientRepository } from "../repositories/postgres/PostgresRecipeIngredientRepository";
 import { ShoppingListService } from "../services/ShoppingListService";
 

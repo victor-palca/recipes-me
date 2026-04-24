@@ -1,4 +1,4 @@
-import { RecipeController } from "../controllers/RecipeController";
+import { RecipeController } from "../http/RecipeController";
 import { PostgresRecipeIngredientRepository } from "../repositories/postgres/PostgresRecipeIngredientRepository";
 import { PostgresRecipeRepository } from "../repositories/postgres/PostgresRecipeRepository";
 import { IngredientSyncService } from "../services/IngredientSyncService";

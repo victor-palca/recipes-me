@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { makeShoppingListController } from "../factories/shoppingListFactory";
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { asHandler } from "../types/http";
+import { makeShoppingListController } from "../../factories/shoppingListFactory";
+import { authMiddleware } from "../../middlewares/authMiddleware";
+import { asHandler } from "../../types/http";
 
 const shoppingListController = makeShoppingListController();
 

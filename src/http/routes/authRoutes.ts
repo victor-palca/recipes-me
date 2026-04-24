@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { makeAuthController } from "../factories/authFactory";
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { asHandler } from "../types/http";
+import { makeAuthController } from "../../factories/authFactory";
+import { authMiddleware } from "../../middlewares/authMiddleware";
+import { asHandler } from "../../types/http";
 
 const authController = makeAuthController();
 

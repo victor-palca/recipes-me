@@ -1,4 +1,4 @@
-import { AuthController } from "../controllers/AuthController";
+import { AuthController } from "../http/AuthController";
 import { PostgresUserRepository } from "../repositories/postgres/PostgresUserRepository";
 import { AuthService } from "../services/AuthService";
 

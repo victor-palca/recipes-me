@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { makeRecipeController } from "../factories/recipeFactory";
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { asHandler } from "../types/http";
+import { makeRecipeController } from "../../factories/recipeFactory";
+import { authMiddleware } from "../../middlewares/authMiddleware";
+import { asHandler } from "../../types/http";
 
 const recipeController = makeRecipeController();
 
